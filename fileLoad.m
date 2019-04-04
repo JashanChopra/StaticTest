@@ -9,6 +9,8 @@ test stand data, specifically for usage in the ASEN2004 Bottle Rocket Lab
 
 %}
 
-data = load(filename)   % first we load the fileLoad
-data = data(:,3)        % we want just the summed load column
-data = data * 4.44822;  % convert summed force to newtons
+data = load(filename);      % first we load the fileLoad
+data = data(:,3);           % we want just the summed load column
+data = data * 4.44822;      % convert summed force to newtons
+
+% This outputs a column vector !
