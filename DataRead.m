@@ -15,3 +15,10 @@ Script Purposes and goals:
 
 % General Housekeeping
 clc; clear; close all;
+
+%% First we import the test stand data
+  filenames = ['LA8am_test3'];  % Create a vector of all filenames
+  numFiles = size(filenames);
+  for f = filenames             % loop iterates over all files
+
+  end
