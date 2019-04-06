@@ -42,9 +42,15 @@ deltaV = zeros(numFiles,1);     % preallocate deltaV
 for f = filenames               % loop iterates over all files
 
     % automated data trim
-    data = fileLoad(f);                                                 % Load data
+    data = fileLoad(f);                                                % Load data
     indicies = find(data <= 0);                                        % negative indices
     data(indicies) = [];                                               % remove negative indices
+
+    % remove values before initial spike
+        % how to read initial increase
+        % check slopes?
+            % remove values with a slope less than a certain tolerance
+            % must check multiple values?
 
     % calculations
     time = (1 / frequency) * linspace(0,length(data),length(data))';    % time vector
@@ -56,5 +62,14 @@ for f = filenames               % loop iterates over all files
     mFinal = mInitial - mProp - mAir + mAirFinal;                       % final mass
 
     deltaV(find(filenames==f),:) = isp*g*log(mInitial / mFinal);        % [m/s] % DeltaV
+
+    %% optional graphing block
+    figure(1)
+    plot(fitobject,time,data)
+    hold on
+    title('Force over time')
+    xlabel('Time [S]')
+    ylabel('Force [N]')
+    legend('Data Set','Fitted Interpolation')
 
 end
