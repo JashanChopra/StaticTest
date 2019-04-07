@@ -46,15 +46,17 @@ for f = filenames               % loop iterates over all files
     indicies = find(data <= 0);                                        % negative indices
     data(indicies) = [];                                               % remove negative indices
 
-    % remove values before initial spike
-        % how to read initial increase
-        % check slopes?
-            % remove values with a slope less than a certain tolerance
-            % must check multiple values?
+    % curve fit
+    time = (1 / frequency) * linspace(0,length(data),length(data))';    % time vector
+    fitobject = fit(time,data,'cubicinterp');                           % cubic interp
+
+    % extraneous value removal
+    fx = abs(differentiate(fitobject, time));                           % calculate slope of various points
+    deletion = find(fx <= 125);                                         % deletion parameter
+    data(deletion) = []; time(deletion) = [];                           % remove values from data
+    fitobject = fit(time,data,'cubicinterp');                           % refit data
 
     % calculations
-    time = (1 / frequency) * linspace(0,length(data),length(data))';    % time vector
-    fitobject = fit(time,data,'cubicinterp');                           % curve fit
     area = integrate(fitobject,time(end),time(1));                      % integration
     isp = area / (mProp*g);                                             % isp calc
 
