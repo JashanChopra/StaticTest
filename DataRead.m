@@ -52,7 +52,7 @@ for f = filenames               % loop iterates over all files
 
     % extraneous value removal
     fx = abs(differentiate(fitobject, time));                           % calculate slope of various points
-    deletion = find(fx <= 125);                                         % deletion parameter
+    deletion = find(fx <= 150);                                         % deletion parameter
     data(deletion) = []; time(deletion) = [];                           % remove values from data
     fitobject = fit(time,data,'cubicinterp');                           % refit data
 
