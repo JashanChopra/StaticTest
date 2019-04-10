@@ -1,3 +1,4 @@
+function deltaV = dataRead()
 %% ASEN 2004 - Rocket Bottle Lab
 %{
 
@@ -54,7 +55,7 @@ numFiles = length(filenames);                 % Number of files
 %% Iteration of deltaV calculation
 deltaV = zeros(numFiles,1);     % preallocate deltaV
 for f = filenames               % loop iterates over all files
-    
+
     % automated data trim
     data = fileLoad(f);                                                % Load data
     indicies = find(data <= 0);                                        % negative indices
@@ -88,4 +89,6 @@ for f = filenames               % loop iterates over all files
     xlabel('Time [S]')
     ylabel('Force [N]')
     legend('Data Set','Fitted Interpolation')
+    
+end
 end
