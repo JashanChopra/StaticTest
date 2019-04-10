@@ -85,10 +85,12 @@ for f = filenames               % loop iterates over all files
     figure(1)
     plot(fitobject,time,data)
     hold on
-    title('Force over time')
+    legend('Data Set','Fitted Interpolation')
+end
+figure(1)
+    title('Force over time')        % plot details
     xlabel('Time [S]')
     ylabel('Force [N]')
-    legend('Data Set','Fitted Interpolation')
-    
-end
+
+
 end
