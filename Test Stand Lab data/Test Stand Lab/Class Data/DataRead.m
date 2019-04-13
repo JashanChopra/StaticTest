@@ -1,4 +1,4 @@
-function deltaV = dataRead()
+function [deltaV,timeVec,IspVec,peakThrust,meanThrust] = dataRead()
 %% ASEN 2004 - Rocket Bottle Lab
 %{
 
@@ -54,6 +54,8 @@ numFiles = length(filenames);                 % Number of files
 
 %% Iteration of deltaV calculation
 deltaV = zeros(numFiles,1);     % preallocate deltaV
+timeVec = zeros(numFiles,1);    % preallocate timeVec
+j = 1;                          % preallocate iterator for timeVec
 for f = filenames               % loop iterates over all files
 
     % automated data trim
@@ -81,11 +83,18 @@ for f = filenames               % loop iterates over all files
 
     deltaV(find(filenames==f),:) = isp*g*log(mInitial / mFinal);        % [m/s] % DeltaV
 
+    IspVec(j) = isp;
+    peakThrust(j) = max(data);
+    meanThrust(j) = mean(data);
+    timeVec(j) = time(end); j= j+1;                                          % store time of thrust in vector
+    
     %% optional graphing block
     figure(1)
     plot(fitobject,time,data)
     hold on
     legend('Data Set','Fitted Interpolation')
+
+    
 end
 figure(1)
     title('Force over time')        % plot details
